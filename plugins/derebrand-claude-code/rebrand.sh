@@ -1,0 +1,1 @@
+skills/derebrand-claude-code/rebrand.sh
