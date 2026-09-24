@@ -124,7 +124,7 @@ WantedBy=default.target
 console.log(`  write studio/${service}.service`);
 const gi = path.join(REPO, '.gitignore');
 let ignore = fs.existsSync(gi) ? fs.readFileSync(gi, 'utf8') : '';
-for (const line of ['studio/state.json', 'studio/decisions.jsonl']) if (!ignore.split('\n').includes(line)) { ignore += (ignore.endsWith('\n') || !ignore ? '' : '\n') + line + '\n'; console.log(`  .gitignore += ${line}`); }
+for (const line of ['studio/state.json', 'studio/decisions.jsonl', 'studio/usage.jsonl']) if (!ignore.split('\n').includes(line)) { ignore += (ignore.endsWith('\n') || !ignore ? '' : '\n') + line + '\n'; console.log(`  .gitignore += ${line}`); }
 fs.writeFileSync(gi, ignore);
 if (!fs.existsSync(ENV_FILE)) { fs.mkdirSync(path.dirname(ENV_FILE), { recursive: true }); fs.writeFileSync(ENV_FILE, '# keys for greenroom services: ANTHROPIC_API_KEY=..., OPENROUTER_API_KEY=..., MOONSHOT_API_KEY=...\n', { mode: 0o600 }); console.log(`  write ${ENV_FILE}`); }
 
