@@ -23,7 +23,6 @@ GRACE = 4.5
 ANCHOR = {
     # 'the first thing you typed': 'term-intro',
     # 'the second thing you typed': 'term-plan',
-
     # 'Run the full verification block': 'term-verify',
 }
 
