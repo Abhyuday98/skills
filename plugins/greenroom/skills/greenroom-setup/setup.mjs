@@ -79,7 +79,7 @@ const allowed = ['Read', 'Edit', 'Write', 'MultiEdit', 'Glob', 'Grep', 'LS', 'Ba
 const disallowed = ['Bash(git push:*)', 'Bash(git commit:*)', 'Bash(git pull:*)', 'Bash(git fetch:*)', 'Bash(git merge:*)', 'Bash(git rebase:*)', 'Bash(git stash:*)', 'Bash(git reset:*)', 'Bash(git checkout:*)', 'Bash(git clean:*)',
   ...(wrangler ? ['Bash(npx wrangler deploy:*)', 'Bash(npx wrangler secret:*)', 'Bash(npx wrangler r2:*)', 'Bash(npm run deploy:*)'] : []),
   ...(d1 ? [`Bash(npx wrangler d1 migrations apply ${d1} --remote:*)`, `Bash(npx wrangler d1 execute ${d1} --remote:*)`] : []),
-  'Bash(rm:*)', 'Bash(sudo:*)', 'Bash(curl:*)', 'WebFetch', 'WebSearch', 'Agent', 'Task'];
+  'Bash(sudo:*)', 'Bash(curl:*)', 'WebFetch', 'WebSearch', 'Agent', 'Task'];
 const syncAfter = d1 ? [`npx wrangler d1 export ${d1} --remote --output .wrangler/live-snapshot.sql && rm -rf .wrangler/state/v3/d1 && npx wrangler d1 execute ${d1} --local --file .wrangler/live-snapshot.sql && npx wrangler d1 migrations apply ${d1} --local`] : [];
 
 // ---------- studio/ ----------
