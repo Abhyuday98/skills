@@ -68,6 +68,25 @@ Traps, all hit for real:
 - Never run heavy work (builds, renders) while a recording runs - encoders lose the
   CPU race and the recording stutters.
 
+- **A plain shell act is easier than a TUI act, with its own traps.** When the recorded
+  session is ordinary commands (a service log, `git`, `gh`, `jq`, `curl`), anchor on
+  OUTPUT strings, not typed text: plain output arrives in one event, and holding on the
+  result is what the narration wants. Then: strip ANSI before matching (`jq` colours
+  its output, and tmux emits `ESC ( B` charset selects mid-string, so the literal
+  `"tier": "words"` never appears in one piece); run the shell with `env -i` and a
+  fixed `PS1` so no hostname or username reaches the cast, but pass
+  `XDG_RUNTIME_DIR` and `DBUS_SESSION_BUS_ADDRESS` through or `systemctl --user`
+  says "Failed to connect to bus"; set `PAGER=cat GH_PAGER=cat` or `gh pr view` opens
+  `less` and the take records nothing; and if `gh pr view` prints only a GraphQL
+  deprecation warning, ask for `--json` fields with `--jq`, which skips the query
+  that fails. Turn the tmux status bar off (`tmux set status off`): it carries the
+  hostname and the clock.
+- **Hold sizing when narration chains.** With GRACE 4.5 the holds were too short for
+  back-to-back cues: each cue starts after the previous one ends, the shifts add up,
+  and the last terminal cue was still talking over the next slide. For a shell act
+  where nothing moves between anchors, size the hold to the whole cue plus a second
+  (GRACE -1.0) and let the warp own the pace.
+
 ## 3. Time warp + scrub (castwarp.py) - one script owns the cast
 
 A raw take is unwatchable (ours: 57 minutes; spinner repaints defeat asciinema's idle
@@ -108,6 +127,16 @@ Tour clips (`tourclip.cjs` shape):
 - **Static build, never the dev server**: build with demo/mock mode on, serve with
   `vite preview`. The dev server's transform pipeline hangs navigations bimodally
   (instant or never).
+- **`recordVideo` needs Playwright's own ffmpeg**, even with the system Chrome
+  channel and a system ffmpeg on PATH: `node <playwright-core>/cli.js install ffmpeg`
+  or the context fails with "Executable doesn't exist at .../ffmpeg-linux".
+- **Zooming the page for legibility scrolls it.** `document.documentElement.style.zoom`
+  makes `100dvh` layouts taller than the viewport, so the document scrolls and the
+  header leaves the frame; add `html, body { height: calc(100vh / ZOOM) }` alongside.
+  Convert `boundingBox()` coordinates by the same factor before `mouse.move`.
+- **Wait for the thing itself, not a phrase.** `text=see it` resolved on the model's
+  own reply ("You'll see it in the footer") and the take ended before the PR link
+  appeared. Wait for the element: `#log a[href*="/pull/"]`.
 - **One fresh Chromium PER SCENE** (launch → record → close). Reused browsers starve:
   each recorded page adds an encoder.
 - `recordVideo` on the context captures webm; no Xvfb, no window manager.
