@@ -37,16 +37,22 @@ keeps its own `studio/` folder with the config, prompts, model list, allow-list 
    go, how content is added (migrations and the command to apply them), the build command. This is what small and
    local models get instead of the full harness prompt, so keep it to file paths and commands.
 
-3. Check `studio/greenroom.config.json`: the `tiers` globs (words = copy and images, content = data such as migrations,
+3. Write the suggestion chips. `ideas` in `studio/greenroom.config.json` is the list under "Some things you could say" on
+   the chat page; the script writes generic placeholders. Replace them with five or six requests this site's owner would
+   actually make, in their words, from what the repo holds: the pages that exist, the content types in the database or
+   content folder (books, events, posts, products), the copy keys, photos. End an open-ended one with `…` so the
+   chip drops the person into the input to finish it, e.g. `Add a new book to the catalog called…`.
+
+4. Check `studio/greenroom.config.json`: the `tiers` globs (words = copy and images, content = data such as migrations,
    design = styles, pages, components, layouts), the `upload.dir`, and `sync.after` (the D1 snapshot command when the
    project has a database, otherwise empty). If the project has a design system skill, `PROMPT.md` already tells Claude
    to read it.
 
-4. Keys. The service reads `~/.config/greenroom.env` (create it, mode 600, if missing). Claude models need nothing
+5. Keys. The service reads `~/.config/greenroom.env` (create it, mode 600, if missing). Claude models need nothing
    when Claude Code is signed in on the machine, or `ANTHROPIC_API_KEY`; OpenRouter entries need `OPENROUTER_API_KEY`.
    `studio/model.txt` picks the provider from `studio/models.json`; it is read on every message.
 
-5. Verify, then commit `studio/` and the `.gitignore` change (no AI attribution trailers):
+6. Verify, then commit `studio/` and the `.gitignore` change (no AI attribution trailers):
 
    ```sh
    systemctl --user status <slug>-studio --no-pager | head -5
@@ -55,6 +61,6 @@ keeps its own `studio/` folder with the config, prompts, model list, allow-list 
    curl -s -H 'Tailscale-User-Login: <allowed login>' -o /dev/null -w '%{http_code}\n' 'http://127.0.0.1:<port>/?preview'  # 200 once the dev server is up; any other path is proxied to it
    ```
 
-6. Tell the user: the studio address (`https://<machine>.<tailnet>.ts.net:<serve-port>`), how to add the person
+7. Tell the user: the studio address (`https://<machine>.<tailnet>.ts.net:<serve-port>`), how to add the person
    (invite to the tailnet, install Tailscale on their phone, add their login to `studio/allowed.txt`, send the link, Add
    to Home Screen), and that nothing reaches the live site until they merge the PR.

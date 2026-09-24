@@ -91,6 +91,7 @@ const config = {
   sync: { everyMinutes: 10, after: syncAfter },
   claude: { allowedTools: allowed, disallowedTools: disallowed },
   prompt: 'PROMPT.md', barePrompt: 'PROMPT.bare.md',
+  ideas: ['Make the headline on the home page bigger', 'Change the accent colour to something warmer', 'Put this photo on the about page', 'Rewrite the introduction to sound warmer', 'Add a new page called…'],
   tiers,
   policy: { autoMerge: false, autoMergeTiers: ['words'] },
   upload: { dir: imgDir, maxWidth: 1600 },
