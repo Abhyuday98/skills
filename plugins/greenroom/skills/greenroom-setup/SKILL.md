@@ -28,7 +28,7 @@ keeps its own `studio/` folder with the config, prompts, model list, allow-list 
    The script: clones or updates greenroom under `~/personal_projects/repos/greenroom` (override with `--greenroom`),
    writes `studio/greenroom.config.json` (preview command, D1 snapshot sync and tool lists detected from
    package.json and wrangler.jsonc, tiers from the directories that exist), copies `PROMPT.md`, `PROMPT.bare.md`,
-   `models.json`, `model.txt`, writes `allowed.txt` and `studio/<slug>-studio.service`, adds the runtime files to
+   `models.json`, `model.txt`, writes `allowed.txt` and `studio/greenroom-<slug>.service` (for Astro also `studio/astro.preview.config.mjs`, which gives the preview its own Vite cache so the build never breaks it), adds the runtime files to
    `.gitignore`, creates the playground worktree at `../<repo>-playground` (copies `.dev.vars`, runs `npm ci` and the
    local D1 migrations), installs and starts the user service, enables linger, and checks the page answers.
 

@@ -58,8 +58,10 @@ const pkg = readJson(path.join(REPO, 'package.json')) || {};
 const deps = { ...(pkg.dependencies || {}), ...(pkg.devDependencies || {}) };
 const wrangler = readJson(path.join(REPO, 'wrangler.jsonc')) || readJson(path.join(REPO, 'wrangler.json'));
 const d1 = wrangler?.d1_databases?.[0]?.database_name || null;
+// Astro: the preview gets its own Vite cache (studio/astro.preview.config.mjs) so a build in the playground never breaks it.
+// Other Vite projects share the cache, so greenroom restarts the preview with a clean cache after a turn that ran the build.
 const preview = deps.astro
-  ? { command: 'npx astro dev --force --host 127.0.0.1 --port {port}', clearCache: 'node_modules/.vite' }
+  ? { command: 'npx astro dev --force --host 127.0.0.1 --port {port} --root . --config studio/astro.preview.config.mjs' }
   : deps.vite ? { command: 'npx vite --host 127.0.0.1 --port {port}', clearCache: 'node_modules/.vite' }
   : { command: 'npm run dev -- --host 127.0.0.1 --port {port}' };
 const hasTest = Boolean(pkg.scripts?.test);
@@ -98,6 +100,11 @@ const config = {
   files: { allowed: 'allowed.txt', model: 'model.txt', models: 'models.json', state: 'state.json', decisions: 'decisions.jsonl' },
 };
 writeIfMissing(path.join(STUDIO, 'greenroom.config.json'), JSON.stringify(config, null, 2) + '\n');
+if (deps.astro) writeIfMissing(path.join(STUDIO, 'astro.preview.config.mjs'), `// The studio preview runs the dev server with this config: the project's own config plus a private Vite cache,
+// so \`npm run build\` inside the playground never clobbers the running preview's optimised dependencies.
+import base from '../astro.config.mjs';
+export default { ...base, vite: { ...(base.vite || {}), cacheDir: 'node_modules/.vite-preview' } };
+`);
 writeIfMissing(path.join(STUDIO, 'PROMPT.md'), fs.readFileSync(path.join(GREENROOM, 'PROMPT.md'), 'utf8'));
 writeIfMissing(path.join(STUDIO, 'PROMPT.bare.md'), fs.readFileSync(path.join(GREENROOM, 'PROMPT.bare.md'), 'utf8'));
 writeIfMissing(path.join(STUDIO, 'models.json'), fs.readFileSync(path.join(GREENROOM, 'example/models.json'), 'utf8'));
