@@ -27,3 +27,5 @@ toolchain (tmux, asciinema, agg, ffmpeg, kokoro-onnx + model files, Playwright).
 - `scripts/` - working templates: recorder driver + babysitter, cast warp + scrub,
   narration-hold generator, tour clip, doc/evidence/annotated cards, deck shooter,
   the assembler, and the toolchain installer
+
+The story of the first film and the second, with what broke: [A twenty-minute narrated film, made with no screen, no microphone and nobody at the keyboard](https://medium.com/@abhyudaysamadder/a-twenty-minute-narrated-film-made-with-no-screen-no-microphone-and-nobody-at-the-keyboard-19d4c67876fc).
