@@ -74,7 +74,7 @@ const allowed = ['Read', 'Edit', 'Write', 'MultiEdit', 'Glob', 'Grep', 'LS', 'Ba
   ...(hasTest ? ['Bash(npm test:*)', 'Bash(npm test)'] : []),
   ...(d1 ? ['Bash(npm run db:migrate:local)', `Bash(npx wrangler d1 migrations apply ${d1} --local:*)`, `Bash(npx wrangler d1 execute ${d1} --local:*)`] : []),
   'Bash(git status:*)', 'Bash(git diff:*)', 'Bash(git log:*)', 'Bash(ls:*)'];
-const disallowed = ['Bash(git push:*)', 'Bash(git commit:*)', 'Bash(git reset:*)', 'Bash(git checkout:*)', 'Bash(git clean:*)',
+const disallowed = ['Bash(git push:*)', 'Bash(git commit:*)', 'Bash(git pull:*)', 'Bash(git fetch:*)', 'Bash(git merge:*)', 'Bash(git rebase:*)', 'Bash(git stash:*)', 'Bash(git reset:*)', 'Bash(git checkout:*)', 'Bash(git clean:*)',
   ...(wrangler ? ['Bash(npx wrangler deploy:*)', 'Bash(npx wrangler secret:*)', 'Bash(npx wrangler r2:*)', 'Bash(npm run deploy:*)'] : []),
   ...(d1 ? [`Bash(npx wrangler d1 migrations apply ${d1} --remote:*)`, `Bash(npx wrangler d1 execute ${d1} --remote:*)`] : []),
   'Bash(rm:*)', 'Bash(sudo:*)', 'Bash(curl:*)', 'WebFetch', 'WebSearch', 'Agent', 'Task'];
