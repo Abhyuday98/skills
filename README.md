@@ -15,6 +15,7 @@ npx skills@latest add Abhyuday98/skills --skill claude-video-generator
 /plugin marketplace add Abhyuday98/skills
 /plugin install cowork@abhyuday-skills
 /plugin install derebrand-claude-code@abhyuday-skills
+/plugin install greenroom@abhyuday-skills
 ```
 
 ## What is here
@@ -24,6 +25,7 @@ npx skills@latest add Abhyuday98/skills --skill claude-video-generator
 | [claude-video-generator](skills/claude-video-generator/SKILL.md) | skill | Produces a narrated demo or walkthrough video fully headless: a recorded terminal session, an app tour from a real browser, HTML slides, offline TTS narration, and an assembler where the audio length sets the screen time. |
 | [cowork](plugins/cowork/skills/cowork/SKILL.md) | plugin | Cowork mode: hand over a goal, get back a verified file. Research first, the right document skill second, and it opens the result to check it before reporting. |
 | [derebrand-claude-code](plugins/derebrand-claude-code/skills/derebrand-claude-code/SKILL.md) | plugin | Renames the Claude Code VS Code extension to a neutral "Assistant" with a plain icon and no orange, and re-applies it after an extension update overwrites it. |
+| [greenroom](plugins/greenroom/README.md) | plugin | `/greenroom:setup` gives a repo a [greenroom](https://github.com/Abhyuday98/greenroom): a chat page behind Tailscale where someone who does not code asks for changes, sees them in a live preview, and sends them as a pull request. |
 
 The standalone repos ([claude-video-generator](https://github.com/Abhyuday98/claude-video-generator), [claude-code-cowork](https://github.com/Abhyuday98/claude-code-cowork), [derebrand-claude-code](https://github.com/Abhyuday98/derebrand-claude-code)) are where these started; this repo is where they are maintained now.
 
