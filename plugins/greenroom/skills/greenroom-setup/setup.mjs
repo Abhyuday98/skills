@@ -119,7 +119,7 @@ After=network-online.target tailscaled.service
 [Service]
 WorkingDirectory=${REPO}
 ExecStart=${node} ${GREENROOM}/server.mjs ${STUDIO}/greenroom.config.json
-Environment=PATH=${path.dirname(node)}:${HOME}/.npm-global/bin:${HOME}/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=PATH=${HOME}/.npm-global/bin:${HOME}/.local/bin:${path.dirname(node)}:/usr/local/bin:/usr/bin:/bin
 Environment=HOME=${HOME}
 EnvironmentFile=-%h/.config/greenroom.env
 Restart=always
